@@ -188,8 +188,14 @@ def mostrar_modulo_jubilacion():
             
             for edad in edades:
                 anos = edad - 30
-                capital_futuro = data['capital_neto'] * (1 + data.get('tea_retiro', 5)/100) ** (edad - 65)
-                pension = calcular_pension_mensual(capital_futuro, data.get('tea_retiro', 5), 20)
+                # Obtener TEA de retiro; si es None (por ejemplo en 'Cobro Total'), usar 5% por defecto
+                tea = data.get('tea_retiro')
+                if tea is None:
+                    tea = 5.0
+
+                # Calcular capital futuro usando la tasa de retiro
+                capital_futuro = data['capital_neto'] * (1 + tea/100) ** (edad - 65)
+                pension = calcular_pension_mensual(capital_futuro, tea, 20)
                 pensiones.append(pension)
             
             fig_comp = go.Figure()
