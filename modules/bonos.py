@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from utils.calculos import calcular_valor_bono
 from utils.validaciones import validar_monto, validar_tea, validar_anos
+from utils.graficos import exportar_grafico_a_imagen
 import io
 import base64
 
@@ -162,10 +163,11 @@ def mostrar_modulo_bonos():
         
         
         st.plotly_chart(fig, use_container_width=True)
-        img_bytes = io.BytesIO()
-        fig.write_image(img_bytes, format="png")
-        img_bytes.seek(0)
-        st.session_state['bono_grafico'] = img_bytes.getvalue()
+        
+        # Exportar gráfico para PDF
+        img_data = exportar_grafico_a_imagen(fig)
+        if img_data:
+            st.session_state['bono_grafico'] = img_data
         
         with st.expander("📋 Ver Tabla Detallada de Flujos"):
             st.dataframe(df, use_container_width=True, hide_index=True)
@@ -213,11 +215,10 @@ def mostrar_modulo_bonos():
             
             st.plotly_chart(fig_sens, use_container_width=True)
             
-            # Guardar gráfica de sensibilidad para PDF
-            img_bytes_sens = io.BytesIO()
-            fig_sens.write_image(img_bytes_sens, format="png")
-            img_bytes_sens.seek(0)
-            st.session_state['bono_grafico_sensibilidad'] = img_bytes_sens.getvalue()
+            # Exportar gráfico de sensibilidad para PDF
+            img_data_sens = exportar_grafico_a_imagen(fig_sens)
+            if img_data_sens:
+                st.session_state['bono_grafico_sensibilidad'] = img_data_sens
             
             st.info("💡 A mayor tasa de mercado, menor es el valor presente del bono")
     

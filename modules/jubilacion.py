@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 from utils.calculos import calcular_pension_mensual, calcular_impuesto
+from utils.graficos import exportar_grafico_a_imagen
 import plotly.io as pio
 import io
 
@@ -167,11 +168,12 @@ def mostrar_modulo_jubilacion():
             )
             
             st.plotly_chart(fig, use_container_width=True)
-            img_bytes = io.BytesIO()
-            fig.write_image(img_bytes, format="png")
-            img_bytes.seek(0)
-            st.session_state['jubilacion_grafico'] = img_bytes.getvalue()
-            st.write("Debug:", len(st.session_state['jubilacion_grafico']))
+            
+            # Exportar gráfico para PDF
+            img_data = exportar_grafico_a_imagen(fig)
+            if img_data:
+                st.session_state['jubilacion_grafico'] = img_data
+                st.write("Debug:", len(st.session_state['jubilacion_grafico']))
 
 
         else:
@@ -206,9 +208,8 @@ def mostrar_modulo_jubilacion():
             
             st.plotly_chart(fig_comp, use_container_width=True)
             
-            # Guardar gráfica de comparación para PDF
-            img_bytes_comp = io.BytesIO()
-            fig_comp.write_image(img_bytes_comp, format="png")
-            img_bytes_comp.seek(0)
-            st.session_state['jubilacion_grafico_comparacion'] = img_bytes_comp.getvalue()
+            # Exportar gráfico de comparación para PDF
+            img_data_comp = exportar_grafico_a_imagen(fig_comp)
+            if img_data_comp:
+                st.session_state['jubilacion_grafico_comparacion'] = img_data_comp
             

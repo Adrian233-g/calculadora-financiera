@@ -217,7 +217,7 @@ def generar_pdf_reporte(datos_cartera, datos_jubilacion, datos_bono=None):
             elements.append(Spacer(1, 0.3*inch))
         
         # 1.2 Gráfica de Crecimiento - mantener gráfica unida
-        if 'grafico' in datos_cartera:
+        if 'grafico' in datos_cartera and datos_cartera['grafico'] is not None:
             grafico_elements = []
             grafico_elements.append(Paragraph("1.2. Gráfica de Crecimiento", subsection_style))
             grafico_elements.append(Spacer(1, 0.1*inch))
@@ -322,7 +322,7 @@ def generar_pdf_reporte(datos_cartera, datos_jubilacion, datos_bono=None):
             elements.append(Spacer(1, 0.3*inch))
         
         # 1.2 Gráfica de Crecimiento - mantener gráfica unida
-        if 'grafico' in datos_cartera:
+        if 'grafico' in datos_cartera and datos_cartera['grafico'] is not None:
             grafico_elements = []
             grafico_elements.append(Paragraph("1.2. Gráfica de Crecimiento", subsection_style))
             grafico_elements.append(Spacer(1, 0.1*inch))
@@ -374,7 +374,7 @@ def generar_pdf_reporte(datos_cartera, datos_jubilacion, datos_bono=None):
         elements.append(Spacer(1, 0.3*inch))
         
         # 2.1 Gráfica de proyección de retiro mensual
-        if 'grafico' in datos_jubilacion:
+        if 'grafico' in datos_jubilacion and datos_jubilacion['grafico'] is not None:
             grafico_elements = []
             grafico_elements.append(Paragraph("2.1. Gráfica de Proyección de Retiro Mensual", subsection_style))
             grafico_elements.append(Spacer(1, 0.1*inch))
@@ -386,7 +386,7 @@ def generar_pdf_reporte(datos_cartera, datos_jubilacion, datos_bono=None):
             elements.append(Spacer(1, 0.3*inch))
         
         # 2.2 Gráfica de comparación de edades de retiro
-        if 'grafico_comparacion' in datos_jubilacion:
+        if 'grafico_comparacion' in datos_jubilacion and datos_jubilacion['grafico_comparacion'] is not None:
             grafico_elements = []
             grafico_elements.append(Paragraph("2.2. Gráfica de Comparación de Edades de Retiro", subsection_style))
             grafico_elements.append(Spacer(1, 0.1*inch))
@@ -489,7 +489,7 @@ def generar_pdf_reporte(datos_cartera, datos_jubilacion, datos_bono=None):
             elements.append(Spacer(1, 0.3*inch))
         
         # 3.2 Gráfica de valor presente por periodo
-        if 'grafico' in datos_bono:
+        if 'grafico' in datos_bono and datos_bono['grafico'] is not None:
             grafico_elements = []
             grafico_elements.append(Paragraph("3.2. Gráfica de Valor Presente por Periodo", subsection_style))
             grafico_elements.append(Spacer(1, 0.1*inch))
@@ -501,7 +501,7 @@ def generar_pdf_reporte(datos_cartera, datos_jubilacion, datos_bono=None):
             elements.append(Spacer(1, 0.3*inch))
         
         # 3.3 Gráfica de Valor del Bono según TEA de Mercado
-        if 'grafico_sensibilidad' in datos_bono:
+        if 'grafico_sensibilidad' in datos_bono and datos_bono['grafico_sensibilidad'] is not None:
             grafico_elements = []
             grafico_elements.append(Paragraph("3.3. Gráfica de Valor del Bono según TEA de Mercado", subsection_style))
             grafico_elements.append(Spacer(1, 0.1*inch))

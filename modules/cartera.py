@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from utils.calculos import calcular_crecimiento_cartera
 from utils.validaciones import validar_monto, validar_tea, validar_anos
+from utils.graficos import exportar_grafico_a_imagen
 import io
 
 def mostrar_modulo_cartera():
@@ -149,10 +150,11 @@ def mostrar_modulo_cartera():
         )
         
         st.plotly_chart(fig, use_container_width=True)
-        img_bytes = io.BytesIO()
-        fig.write_image(img_bytes, format="png")
-        img_bytes.seek(0)
-        st.session_state['cartera_grafico'] = img_bytes.getvalue()
+        
+        # Exportar gráfico para PDF
+        img_data = exportar_grafico_a_imagen(fig)
+        if img_data:
+            st.session_state['cartera_grafico'] = img_data
         
         with st.expander("📋 Ver Tabla Detallada"):
             st.dataframe(df, use_container_width=True, hide_index=True)
